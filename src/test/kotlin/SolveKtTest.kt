@@ -12,7 +12,7 @@ internal class SolveKtTest {
 
         assertThat(result.size).isEqualTo(1)
         assertThat(result.single().squares).isEqualTo(completeBoard)
-        assertThat(result.single()).isInstanceOf(Complete::class.java)
+        assertThat(result.single()).isInstanceOf(Solution::class.java)
     }
 
     @Test
@@ -34,7 +34,7 @@ internal class SolveKtTest {
 
         assertThat(result.size).isEqualTo(1)
         assertThat(result.single().squares).isEqualTo(completeBoard)
-        assertThat(result.single()).isInstanceOf(Complete::class.java)
+        assertThat(result.single()).isInstanceOf(Solution::class.java)
 
     }
 
@@ -57,7 +57,7 @@ internal class SolveKtTest {
 
         assertThat(result.size).isEqualTo(1)
         assertThat(result.single().squares).isEqualTo(completeBoard)
-        assertThat(result.single()).isInstanceOf(Complete::class.java)
+        assertThat(result.single()).isInstanceOf(Solution::class.java)
     }
 
     @Test
@@ -77,12 +77,30 @@ internal class SolveKtTest {
         )
         val result = solve(unresolved)
 
-        result.single().print()
-
         assertThat(result.size).isEqualTo(1)
         assertThat(result.single().squares).isEqualTo(completeBoard)
-        assertThat(result.single()).isInstanceOf(Complete::class.java)
+        assertThat(result.single()).isInstanceOf(Solution::class.java)
     }
+
+//    @Test
+//    fun `should return empty list for a board with no solutions`() {
+//        val unresolved = Unresolved(
+//            listOf(
+//                1, 2, 3, 4, 5, 6, 7, 8, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 9,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0,
+//                0, 0, 0, 0, 0, 0, 0, 0, 0
+//            )
+//        )
+//        val result = solve(unresolved)
+//
+//        assertThat(result).isEmpty()
+//    }
 
     private val completeBoard = listOf(
         1, 2, 3, 4, 5, 6, 7, 8, 9,
