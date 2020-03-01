@@ -1,8 +1,8 @@
 fun solve(board: Unresolved): List<Complete> {
-    val squares = if (!board.squares.contains(0)) {
-        board.squares
+    val newBoard = if (!board.squares.contains(0)) {
+        board
     } else {
-        board.squares.map { if(it == 0) 8 else it }
+        board.deduce().deduce()
     }
-    return listOf(Complete(squares))
+    return listOf(Complete(newBoard.squares))
 }

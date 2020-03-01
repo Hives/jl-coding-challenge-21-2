@@ -2,12 +2,41 @@ fun main() {
 
 }
 
-sealed class Board(val squares: List<Int>)
+sealed class Board(val squares: List<Int>) {
+    fun print() = run {
+        val formattedSquares = squares
+            .map { it.toString() }
+            .chunked(9)
+            .map { it.add(6, "│").add(3, "│") }
+            .map { it.joinToString(" ") }
+            .add(6, "──────┼───────┼──────")
+            .add(3, "──────┼───────┼──────")
+            .joinToString("\n", postfix = "\n")
+
+        println(formattedSquares)
+    }
+}
 
 class Invalid(squares: List<Int>) : Board(squares)
 class Complete(squares: List<Int>) : Board(squares)
 
 class Unresolved(squares: List<Int>) : Board(squares) {
+
+    fun deduce() = Unresolved(
+        squares.mapIndexed { index, value ->
+            if (value != 0) {
+                value
+            } else {
+                val possibilities = (1..9).toSet() - getPeers(index)
+                if (possibilities.size == 1) {
+                    possibilities.single()
+                } else {
+                    0
+                }
+            }
+        }
+    )
+
     fun getPeers(index: Int): Set<Int> = getRow(index).toSet() + getColumn(index).toSet() + getSubGrid(index).toSet()
 
     private fun getRow(requestedPosition: Int) =
