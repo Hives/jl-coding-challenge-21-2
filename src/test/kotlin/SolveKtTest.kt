@@ -1,4 +1,5 @@
 import assertk.assertThat
+import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
 import assertk.assertions.isInstanceOf
 import org.junit.jupiter.api.Test
@@ -82,25 +83,25 @@ internal class SolveKtTest {
         assertThat(result.single()).isInstanceOf(Solution::class.java)
     }
 
-//    @Test
-//    fun `should return empty list for a board with no solutions`() {
-//        val unresolved = Unresolved(
-//            listOf(
-//                1, 2, 3, 4, 5, 6, 7, 8, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 9,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0,
-//                0, 0, 0, 0, 0, 0, 0, 0, 0
-//            )
-//        )
-//        val result = solve(unresolved)
-//
-//        assertThat(result).isEmpty()
-//    }
+    @Test
+    fun `should return empty list for a board with no solutions`() {
+        val unresolved = Unresolved(
+            listOf(
+                1, 2, 3, 4, 5, 6, 7, 8, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 9,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0,
+                0, 0, 0, 0, 0, 0, 0, 0, 0
+            )
+        )
+        val result = solve(unresolved)
+
+        assertThat(result).isEmpty()
+    }
 
     private val completeBoard = listOf(
         1, 2, 3, 4, 5, 6, 7, 8, 9,
