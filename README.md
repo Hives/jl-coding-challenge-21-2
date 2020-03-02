@@ -2,7 +2,7 @@
 
 <https://coding-challenges.jl-engineering.net/challenges/challenge-21/>
 
-Solving Sudokus again. This time using (more) recursion.
+Solving Sudokus again, this time using (more) recursion. This solution improves on the previous one by generating all solutions for a puzzle (I think).
 
 See also <https://github.com/Hives/jl-coding-challenge-21>
 
