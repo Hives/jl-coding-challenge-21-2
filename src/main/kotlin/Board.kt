@@ -1,37 +1,39 @@
 sealed class Board
 
 object Invalid : Board()
+
 data class Solution(override val squares: List<Int>) : Board(), Printable
 data class Unresolved(override val squares: List<Int>) : Board(), Printable {
-
-    tailrec fun deduceUntilExhausted(): Board {
-        val newBoard = deduce()
-
-        if (newBoard.isInvalid) return Invalid
-        if (newBoard.isSolution) return newBoard.toSolution()
-        if (newBoard == this) return newBoard
-
-        return newBoard.deduceUntilExhausted()
-    }
-
-    private fun toSolution() = Solution(squares)
-
-    private fun deduce() = Unresolved(
-            squares.mapIndexed { index, value ->
-                val possibilities = getPossibilitiesFor(index)
-                if (value != 0 || possibilities.size != 1) {
-                    value
-                } else {
-                    possibilities.single()
-                }
-            }
-        )
 
     private val isValid: Boolean = noSquareHasSameValueAsAPeer() && everyEmptySquareHasAPossibleSolution()
 
     val isInvalid: Boolean = !isValid
 
     val isSolution: Boolean = !squares.contains(0) && isValid
+
+    fun toSolution() = Solution(squares)
+
+    fun deduce() = Unresolved(
+        squares.mapIndexed { index, value ->
+            val possibilities = getPossibilitiesFor(index)
+            if (value == 0 && possibilities.size == 1) {
+                possibilities.single()
+            } else {
+                value
+            }
+        }
+    )
+
+    fun unsolvedSquareWithFewestPossibilities(): Int =
+        squares
+            .mapIndexed { index, value -> Pair(index, value) }
+            .filter { (_, value) -> value == 0 }
+            .minBy { (index, _) -> getPossibilitiesFor(index).size }
+            ?.let { (index, _) ->
+                if (getPeersFor(index).size == 9) throw Error("This square has NO possibilities?!")
+                index
+            }
+            ?: throw Error("Couldn't find a square with fewest possibilities?!")
 
     private fun noSquareHasSameValueAsAPeer(): Boolean =
         squares
@@ -44,10 +46,10 @@ data class Unresolved(override val squares: List<Int>) : Board(), Printable {
             .filter { (_, value) -> value == 0 }
             .all { (index, _) -> getPossibilitiesFor(index).isNotEmpty() }
 
-    private fun getPossibilitiesFor(index: Int) = (1..9).toSet() - getPeersFor(index)
+    fun getPossibilitiesFor(index: Int) = (1..9).toSet() - getPeersFor(index)
 
     private fun getPeersFor(index: Int): Set<Int> =
-        getRow(index).toSet() + getColumn(index).toSet() + getSubGrid(index).toSet()
+        getRow(index).toSet() + getColumn(index).toSet() + getSubGrid(index).toSet() - setOf(0)
 
     private fun getRow(requestedPosition: Int) =
         squares.filterIndexed { index, _ ->
