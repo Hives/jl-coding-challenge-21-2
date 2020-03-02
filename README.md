@@ -1,5 +1,4 @@
-# John Lewis Coding Challenge 21
-## Second crack
+# John Lewis Coding Challenge 21, part 2
 
 <https://coding-challenges.jl-engineering.net/challenges/challenge-21/>
 
