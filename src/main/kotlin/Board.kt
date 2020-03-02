@@ -1,9 +1,4 @@
-sealed class Board
-
-object Invalid : Board()
-
-data class Solution(override val squares: List<Int>) : Board(), Printable
-data class Unresolved(override val squares: List<Int>) : Board(), Printable {
+data class Board(val squares: List<Int>) {
 
     private val isValid: Boolean = noSquareHasSameValueAsAPeer() && everyEmptySquareHasAPossibleSolution()
 
@@ -11,9 +6,7 @@ data class Unresolved(override val squares: List<Int>) : Board(), Printable {
 
     val isSolution: Boolean = !squares.contains(0) && isValid
 
-    fun toSolution() = Solution(squares)
-
-    fun deduce() = Unresolved(
+    fun deduce() = Board(
         squares.mapIndexed { index, value ->
             val possibilities = getPossibilitiesFor(index)
             if (value == 0 && possibilities.size == 1) {
@@ -69,10 +62,6 @@ data class Unresolved(override val squares: List<Int>) : Board(), Printable {
     private fun rowIndexOf(position: Int) = position / 9
     private fun colIndexOf(position: Int) = position % 9
     private fun subGridIndexOf(position: Int) = (colIndexOf(position) / 3) + (3 * (rowIndexOf(position) / 3))
-}
-
-interface Printable {
-    val squares: List<Int>
 
     fun print() = run {
         val formattedSquares = squares

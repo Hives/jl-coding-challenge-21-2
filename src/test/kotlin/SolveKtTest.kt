@@ -32,8 +32,7 @@ internal class SolveKtTest {
         val result = solve(puzzle)
 
         assertThat(result.size).isEqualTo(1)
-        assertThat(result.single()).isInstanceOf(Solution::class.java)
-        assertThat((result.single() as Solution).squares).isEqualTo(completeBoard)
+        assertThat(result.single().squares).isEqualTo(completeBoard)
     }
 
     @Test
@@ -52,8 +51,7 @@ internal class SolveKtTest {
         val result = solve(puzzle)
 
         assertThat(result.size).isEqualTo(1)
-        assertThat(result.single()).isInstanceOf(Solution::class.java)
-        assertThat((result.single() as Solution).squares).isEqualTo(completeBoard)
+        assertThat(result.single().squares).isEqualTo(completeBoard)
     }
 
     @Test
@@ -72,8 +70,7 @@ internal class SolveKtTest {
         val result = solve(puzzle)
 
         assertThat(result.size).isEqualTo(1)
-        assertThat(result.single()).isInstanceOf(Solution::class.java)
-        assertThat((result.single() as Solution).squares).isEqualTo(completeBoard)
+        assertThat(result.single().squares).isEqualTo(completeBoard)
     }
 
     @Test
@@ -127,9 +124,9 @@ internal class SolveKtTest {
             )
         val result = solve(puzzle)
 
-        result.forEach { (it as Solution).print() }
+        result.forEach { it.print() }
 
-        assertThat(result.size).isGreaterThan(1)
+        assertThat(result.size).isEqualTo(8)
     }
 
     private val completeBoard = listOf(
