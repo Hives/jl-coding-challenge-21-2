@@ -1,5 +1,6 @@
 import assertk.Assert
 import assertk.assertions.doesNotContain
+import assertk.assertions.isTrue
 
 fun Assert<Board>.isValidSolutionTo(puzzle: List<Int>) = given { actual ->
     assertThat(actual.squares).doesNotContain(0)
@@ -10,5 +11,5 @@ fun Assert<Board>.isValidSolutionTo(puzzle: List<Int>) = given { actual ->
         }
     }
 
-    // TODO finish this
+    assertThat(actual.isSolution).isTrue()
 }

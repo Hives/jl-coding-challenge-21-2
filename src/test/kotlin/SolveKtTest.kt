@@ -1,8 +1,6 @@
 import assertk.assertThat
 import assertk.assertions.isEmpty
 import assertk.assertions.isEqualTo
-import assertk.assertions.isGreaterThan
-import assertk.assertions.isInstanceOf
 import org.junit.jupiter.api.Test
 
 internal class SolveKtTest {
@@ -110,7 +108,7 @@ internal class SolveKtTest {
     }
 
     @Test
-    fun `puzzle with more than one solution`() {
+    fun `returns all solutions for a puzzle with more than one solution`() {
         val puzzle = listOf(
                 0, 8, 0, 0, 0, 9, 7, 4, 3,
                 0, 5, 0, 0, 0, 8, 0, 1, 0,
@@ -122,11 +120,12 @@ internal class SolveKtTest {
                 0, 3, 0, 5, 0, 0, 0, 8, 0,
                 9, 7, 2, 4, 0, 0, 0, 5, 0
             )
-        val result = solve(puzzle)
+        val results = solve(puzzle)
 
-        result.forEach { it.print() }
-
-        assertThat(result.size).isEqualTo(8)
+        assertThat(results.size).isEqualTo(8)
+        results.forEach {
+            assertThat(it).isValidSolutionTo(puzzle)
+        }
     }
 
     private val completeBoard = listOf(
